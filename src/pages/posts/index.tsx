@@ -3,7 +3,7 @@ import { GetStaticProps } from 'next';
 import { api } from '../../services/index';
 
 export interface IPost {
-  id: string;
+  id: number;
   title: string;
 }
 

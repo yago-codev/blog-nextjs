@@ -5,7 +5,7 @@ import { api } from '../services';
 // import styles from '../styles/home.module.scss';
 
 export interface IPost {
-  id: string;
+  id: number;
   title: string;
 }
 
