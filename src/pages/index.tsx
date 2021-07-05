@@ -1,3 +1,4 @@
+import { GetServerSideProps } from 'next'
 import { useEffect, useState } from 'react'
 import { api } from '../services'
 
@@ -8,17 +9,21 @@ interface IPost {
   title: string
 }
 
-export default function Home() {
-  const { postsUrl } = api;
-  const [posts, setPosts] = useState<IPost[]>([])
+interface IHomeProps {
+  posts: IPost[]
+}
 
-  useEffect(() => {
-    fetch(postsUrl)
-      .then(response => {
-        response.json()
-          .then(data => setPosts(data))
-      })
-  }, [])
+export default function Home({ posts }: IHomeProps) {
+  // const { postsUrl } = api;
+  // const [posts, setPosts] = useState<IPost[]>([])
+
+  // useEffect(() => {
+  //   fetch(postsUrl)
+  //     .then(response => {
+  //       response.json()
+  //         .then(data => setPosts(data))
+  //     })
+  // }, [])
 
   return (
     <>
@@ -34,4 +39,18 @@ export default function Home() {
       </ul>
     </>
   )
+}
+
+export const getServerSideProps: GetServerSideProps<IHomeProps> = async () => {
+  const { postsUrl } = api
+
+  const response = await fetch(postsUrl)
+
+  const posts = await response.json()
+
+  return {
+    props: {
+      posts,
+    }
+  }
 }
