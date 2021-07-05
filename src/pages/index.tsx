@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { baseUrl } from '../services'
+import { api } from '../services'
 
 import styles from '../styles/home.module.scss'
 
@@ -9,10 +9,11 @@ interface IPost {
 }
 
 export default function Home() {
+  const { postsUrl } = api;
   const [posts, setPosts] = useState<IPost[]>([])
 
   useEffect(() => {
-    fetch(baseUrl)
+    fetch(postsUrl)
       .then(response => {
         response.json()
           .then(data => setPosts(data))
