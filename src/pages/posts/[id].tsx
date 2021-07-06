@@ -14,10 +14,13 @@ interface ICommentsProps {
 
 export default function Post({ comments }: ICommentsProps) {
   const {
-    query: { id }
+    query: { id },
+    isFallback
   } = useRouter();
 
-  return (
+  return isFallback ? (
+    <p>Loading...</p>
+  ) : (
     <>
       <h1>Post {id}</h1>
       <ul>
@@ -30,20 +33,20 @@ export default function Post({ comments }: ICommentsProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { postsUrl } = api;
+  // const { postsUrl } = api;
 
-  const response = await fetch(postsUrl);
-  const posts = await response.json();
+  // const response = await fetch(postsUrl);
+  // const posts = await response.json();
 
-  const paths = posts.map(({ id }) => {
-    return {
-      params: { id: String(id) }
-    };
-  });
+  // const paths = posts.map(({ id }) => {
+  //   return {
+  //     params: { id: String(id) }
+  //   };
+  // });
 
   return {
-    paths,
-    fallback: false
+    paths: [],
+    fallback: true
   };
 };
 
