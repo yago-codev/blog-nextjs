@@ -3,6 +3,7 @@ import { GetServerSideProps } from 'next';
 import { api } from '../services';
 
 // import styles from '../styles/home.module.scss';
+import { SEO } from '../components/SEO';
 
 export interface IPost {
   id: number;
@@ -26,14 +27,15 @@ export default function Home({ posts }: IHomeProps) {
   // }, [])
 
   return (
-    <>
+    <div>
+      <SEO title="Dev News!" />
       <h1>Posts</h1>
       <ul>
         {posts.map(({ id, title }) => (
           <li key={id}>{title}</li>
         ))}
       </ul>
-    </>
+    </div>
   );
 }
 
