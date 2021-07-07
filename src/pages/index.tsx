@@ -28,7 +28,7 @@ export default function Home({ posts }: IHomeProps) {
 
   return (
     <div>
-      <SEO title="Dev News!" />
+      <SEO title="Dev News!" excludeTitleSuffix={true} />
       <h1>Posts</h1>
       <ul>
         {posts.map(({ id, title }) => (
