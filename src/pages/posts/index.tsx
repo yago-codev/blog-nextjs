@@ -28,7 +28,7 @@ export default function Posts({ posts }: IPostsProps) {
         <div className={styles.posts}>
           {posts.map(({ excerpt, slug, title, updatedAt }) => (
             <Fragment key={slug}>
-              <Link href={slug}>
+              <Link href={`/posts/${slug}`}>
                 <a>
                   <time>{updatedAt}</time>
                   <strong>{title}</strong>

@@ -1,7 +1,11 @@
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { useRouter } from 'next/router';
 
+import { SEO } from '../../components/SEO';
+
 import { api } from '../../services/index';
+
+import styles from './post.module.scss';
 
 interface ICommentProps {
   id: number;
@@ -22,12 +26,14 @@ export default function Post({ comments }: ICommentsProps) {
     <p>Loading...</p>
   ) : (
     <>
-      <h1>Post {id}</h1>
-      <ul>
-        {comments.map(({ id, body }) => (
-          <li key={id}>{body}</li>
-        ))}
-      </ul>
+      <SEO title="Post" />
+      <main className={styles.container}>
+        <article className={styles.post}>
+          <h1>Titulo</h1>
+          <time>Data</time>
+          <div>Conteudo</div>
+        </article>
+      </main>
     </>
   );
 }
@@ -50,19 +56,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<ICommentsProps> = async ({
-  params
-}) => {
-  const { id } = params;
-  const { commentsUrl } = api;
-
-  const response = await fetch(`${commentsUrl}?postId=${id}`);
-  const comments = await response.json();
-
+export const getStaticProps: GetStaticProps = async context => {
   return {
-    props: {
-      comments
-    },
-    revalidate: 5
+    props: {},
+    revalidate: 60 * 60 * 12
   };
 };
